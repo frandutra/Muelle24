@@ -19,7 +19,7 @@ namespace CapaPresentacion.Properties {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -104,7 +104,6 @@ namespace CapaPresentacion.Properties {
         ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
-        ///    &lt;!--sistema creado por el canal yt codigo estudiante--&gt;
         ///    &lt;title&gt;Web Page Design&lt;/title&gt;
         ///    &lt;style&gt;
         ///        table.border {
@@ -121,7 +120,11 @@ namespace CapaPresentacion.Properties {
         ///                text-align: center;
         ///                padding: 5px;
         ///                border: 1px solid black;
-        ///            } [resto de la cadena truncado]&quot;;.
+        ///            }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;tab [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaCompra {
             get {
@@ -143,7 +146,6 @@ namespace CapaPresentacion.Properties {
         ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
-        ///    &lt;!--sistema creado por el canal yt codigo estudiante--&gt;
         ///    &lt;title&gt;Web Page Design&lt;/title&gt;
         ///    &lt;style&gt;
         ///        table.border {
@@ -160,7 +162,11 @@ namespace CapaPresentacion.Properties {
         ///                text-align: center;
         ///                padding: 5px;
         ///                border: 1px solid black;
-        ///            } [resto de la cadena truncado]&quot;;.
+        ///            }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;tab [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaVenta {
             get {
