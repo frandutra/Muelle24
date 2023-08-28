@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using System.Data;
-using System.Data.SqlClient;
+using Npgsql;
 using CapaEntidad;
+using System.Data;
 
 namespace CapaDatos
 {
     public class CD_Permiso
     {
-
         public List<Permiso> Listar(int idusuario)
         {
             List<Permiso> lista = new List<Permiso>();
 
-            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
-
                 try
                 {
                     StringBuilder query = new StringBuilder();
@@ -28,41 +25,31 @@ namespace CapaDatos
                     query.AppendLine("inner join USUARIO u on u.IdRol = r.IdRol");
                     query.AppendLine("where u.IdUsuario = @idusuario");
 
-                   
-                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), conexion);
                     cmd.Parameters.AddWithValue("@idusuario", idusuario);
                     cmd.CommandType = CommandType.Text;
 
-                    oconexion.Open();
+                    conexion.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
-
                         while (dr.Read())
                         {
-
                             lista.Add(new Permiso()
                             {
-                                oRol = new Rol() { IdRol = Convert.ToInt32(dr["IdRol"]) } ,
+                                oRol = new Rol() { IdRol = Convert.ToInt32(dr["IdRol"]) },
                                 NombreMenu = dr["NombreMenu"].ToString(),
                             });
-
                         }
-
                     }
-
-
                 }
                 catch (Exception ex)
                 {
-
                     lista = new List<Permiso>();
                 }
             }
 
             return lista;
-
         }
-
     }
 }

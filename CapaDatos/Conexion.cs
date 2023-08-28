@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 
 
+
 namespace CapaDatos
 {
     public class Conexion
