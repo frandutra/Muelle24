@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Npgsql;
 using System.Data;
-using System.Data.SqlClient;
 using CapaEntidad;
-
 
 namespace CapaDatos
 {
@@ -17,19 +15,19 @@ namespace CapaDatos
         {
             List<Rol> lista = new List<Rol>();
 
-            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select IdRol,Descripcion from ROL");
-      
-                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+                    query.AppendLine("select IdRol, Descripcion from ROL");
+
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), oconexion);
                     cmd.CommandType = CommandType.Text;
 
                     oconexion.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
@@ -43,15 +41,11 @@ namespace CapaDatos
                 }
                 catch (Exception ex)
                 {
-
                     lista = new List<Rol>();
                 }
             }
 
             return lista;
-
         }
-
-
     }
 }
