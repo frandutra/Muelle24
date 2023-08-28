@@ -10,7 +10,7 @@ namespace CapaPresentacion
 {
     internal class ConexionBDD
     {
-            NpgsqlConnection conn = new NpgsqlConnection("Server = silly.db.elephantsql.com; User Id= vuxgyuvc; Password= 9wI083U3JMWjXQ_cdYGTedhOjpdvbXSM; Database= vuxgyuvc; Port= 5432");
+            NpgsqlConnection conn = new NpgsqlConnection("Server = silly.db.elephantsql.com; User Id= vyabgmbp; Password= KaCvEtUNH3YFEv64gl4PV8OZ0lhZh8ar; Database= vyabgmbp; Port= 5432");
             public void Conectar()
             {
                 conn.Open();

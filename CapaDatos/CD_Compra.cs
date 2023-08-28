@@ -15,16 +15,16 @@ namespace CapaDatos
         {
             int idcorrelativo = 0;
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("select count(*) + 1 from COMPRA");
-                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), conexion);
                     cmd.CommandType = CommandType.Text;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     idcorrelativo = Convert.ToInt32(cmd.ExecuteScalar());
                 }
@@ -41,11 +41,11 @@ namespace CapaDatos
             bool Respuesta = false;
             Mensaje = string.Empty;
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_RegistrarCompra", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_RegistrarCompra", conexion);
                     cmd.Parameters.AddWithValue("IdUsuario", obj.oUsuario.IdUsuario);
                     cmd.Parameters.AddWithValue("IdProveedor", obj.oProveedor.IdProveedor);
                     cmd.Parameters.AddWithValue("TipoDocumento", obj.TipoDocumento);
@@ -56,7 +56,7 @@ namespace CapaDatos
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -75,7 +75,7 @@ namespace CapaDatos
         public Compra ObtenerCompra(string numero)
         {
             Compra obj = new Compra();
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
@@ -89,11 +89,11 @@ namespace CapaDatos
                     query.AppendLine("inner join PROVEEDOR pr on pr.IdProveedor = c.IdProveedor");
                     query.AppendLine("where c.NumeroDocumento = @numero");
 
-                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), conexion);
                     cmd.Parameters.AddWithValue("@numero", numero);
                     cmd.CommandType = CommandType.Text;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {

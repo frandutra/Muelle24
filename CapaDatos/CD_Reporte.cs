@@ -15,17 +15,17 @@ namespace CapaDatos
         {
             List<ReporteCompra> lista = new List<ReporteCompra>();
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ReporteCompras", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ReporteCompras", conexion);
                     cmd.Parameters.AddWithValue("fechainicio", fechainicio);
                     cmd.Parameters.AddWithValue("fechafin", fechafin);
                     cmd.Parameters.AddWithValue("idproveedor", idproveedor);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -64,16 +64,16 @@ namespace CapaDatos
         {
             List<ReporteVenta> lista = new List<ReporteVenta>();
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ReporteVentas", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ReporteVentas", conexion);
                     cmd.Parameters.AddWithValue("fechainicio", fechainicio);
                     cmd.Parameters.AddWithValue("fechafin", fechafin);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {

@@ -75,6 +75,7 @@ namespace CapaPresentacion
             string mensaje = string.Empty;
 
             Usuario objusuario = new Usuario() {
+                IdUsuario = Convert.ToInt32(txtid.Text),
                 Documento = txtdocumento.Text,
                 NombreCompleto = txtnombrecompleto.Text,
                 Correo = txtcorreo.Text,

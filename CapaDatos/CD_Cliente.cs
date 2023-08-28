@@ -15,15 +15,15 @@ namespace CapaDatos
         {
             List<Cliente> lista = new List<Cliente>();
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("select IdCliente,Documento,NombreCompleto,Correo,Telefono,Estado from CLIENTE");
-                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), conexion);
                     cmd.CommandType = CommandType.Text;
-                    oconexion.Open();
+                    conexion.Open();
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -56,9 +56,9 @@ namespace CapaDatos
             Mensaje = string.Empty;
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_RegistrarCliente", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_RegistrarCliente", conexion);
                     cmd.Parameters.AddWithValue("Documento", obj.Documento);
                     cmd.Parameters.AddWithValue("NombreCompleto", obj.NombreCompleto);
                     cmd.Parameters.AddWithValue("Correo", obj.Correo);
@@ -68,7 +68,7 @@ namespace CapaDatos
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -92,9 +92,9 @@ namespace CapaDatos
             Mensaje = string.Empty;
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ModificarCliente", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ModificarCliente", conexion);
                     cmd.Parameters.AddWithValue("IdCliente", obj.IdCliente);
                     cmd.Parameters.AddWithValue("Documento", obj.Documento);
                     cmd.Parameters.AddWithValue("NombreCompleto", obj.NombreCompleto);
@@ -105,7 +105,7 @@ namespace CapaDatos
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -129,12 +129,12 @@ namespace CapaDatos
             Mensaje = string.Empty;
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("delete from cliente where IdCliente = @id", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("delete from cliente where IdCliente = @id", conexion);
                     cmd.Parameters.AddWithValue("@id", obj.IdCliente);
                     cmd.CommandType = CommandType.Text;
-                    oconexion.Open();
+                    conexion.Open();
                     respuesta = cmd.ExecuteNonQuery() > 0 ? true : false;
                 }
 

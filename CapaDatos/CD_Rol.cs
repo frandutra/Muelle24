@@ -15,17 +15,17 @@ namespace CapaDatos
         {
             List<Rol> lista = new List<Rol>();
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("select IdRol, Descripcion from ROL");
 
-                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), conexion);
                     cmd.CommandType = CommandType.Text;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {

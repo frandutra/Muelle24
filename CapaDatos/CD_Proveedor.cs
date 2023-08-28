@@ -15,17 +15,17 @@ namespace CapaDatos
         {
             List<Proveedor> lista = new List<Proveedor>();
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("select IdProveedor,Documento,RazonSocial,Correo,Telefono,Estado from PROVEEDOR");
 
-                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), conexion);
                     cmd.CommandType = CommandType.Text;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -59,9 +59,9 @@ namespace CapaDatos
 
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_RegistrarProveedor", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_RegistrarProveedor", conexion);
                     cmd.Parameters.AddWithValue("Documento", obj.Documento);
                     cmd.Parameters.AddWithValue("RazonSocial", obj.RazonSocial);
                     cmd.Parameters.AddWithValue("Correo", obj.Correo);
@@ -71,7 +71,7 @@ namespace CapaDatos
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -95,9 +95,9 @@ namespace CapaDatos
 
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ModificarProveedor", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ModificarProveedor", conexion);
                     cmd.Parameters.AddWithValue("IdProveedor", obj.IdProveedor);
                     cmd.Parameters.AddWithValue("Documento", obj.Documento);
                     cmd.Parameters.AddWithValue("RazonSocial", obj.RazonSocial);
@@ -108,7 +108,7 @@ namespace CapaDatos
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -132,15 +132,15 @@ namespace CapaDatos
 
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_EliminarProveedor", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_EliminarProveedor", conexion);
                     cmd.Parameters.AddWithValue("IdProveedor", obj.IdProveedor);
                     cmd.Parameters.Add("Resultado", NpgsqlTypes.NpgsqlDbType.Boolean).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 

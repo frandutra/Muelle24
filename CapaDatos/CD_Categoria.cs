@@ -15,16 +15,16 @@ namespace CapaDatos
         {
             List<Categoria> lista = new List<Categoria>();
 
-            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+            using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("select IdCategoria,Descripcion,Estado from CATEGORIA");
-                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query.ToString(), conexion);
                     cmd.CommandType = CommandType.Text;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -57,16 +57,16 @@ namespace CapaDatos
 
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("SP_RegistrarCategoria", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("SP_RegistrarCategoria", conexion);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
                     cmd.Parameters.AddWithValue("Estado", obj.Estado);
                     cmd.Parameters.Add("Resultado", NpgsqlTypes.NpgsqlDbType.Integer).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -90,9 +90,9 @@ namespace CapaDatos
             Mensaje = string.Empty;
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_EditarCategoria", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_EditarCategoria", conexion);
                     cmd.Parameters.AddWithValue("IdCategoria", obj.IdCategoria);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
                     cmd.Parameters.AddWithValue("Estado", obj.Estado);
@@ -100,7 +100,7 @@ namespace CapaDatos
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -124,15 +124,15 @@ namespace CapaDatos
             Mensaje = string.Empty;
             try
             {
-                using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
+                using (NpgsqlConnection conexion = new NpgsqlConnection(Conexion.cadena))
                 {
-                    NpgsqlCommand cmd = new NpgsqlCommand("sp_EliminarCategoria", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_EliminarCategoria", conexion);
                     cmd.Parameters.AddWithValue("IdCategoria", obj.IdCategoria);
                     cmd.Parameters.Add("Resultado", NpgsqlTypes.NpgsqlDbType.Integer).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", NpgsqlTypes.NpgsqlDbType.Varchar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    oconexion.Open();
+                    conexion.Open();
 
                     cmd.ExecuteNonQuery();
 
