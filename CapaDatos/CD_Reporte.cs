@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Npgsql;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +15,11 @@ namespace CapaDatos
         {
             List<ReporteCompra> lista = new List<ReporteCompra>();
 
-            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
-                    StringBuilder query = new StringBuilder();
-                    SqlCommand cmd = new SqlCommand("sp_ReporteCompras", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ReporteCompras", oconexion);
                     cmd.Parameters.AddWithValue("fechainicio", fechainicio);
                     cmd.Parameters.AddWithValue("fechafin", fechafin);
                     cmd.Parameters.AddWithValue("idproveedor", idproveedor);
@@ -28,11 +27,10 @@ namespace CapaDatos
 
                     oconexion.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-
                             lista.Add(new ReporteCompra()
                             {
                                 FechaRegistro = dr["FechaRegistro"].ToString(),
@@ -55,32 +53,29 @@ namespace CapaDatos
                 }
                 catch (Exception ex)
                 {
-
                     lista = new List<ReporteCompra>();
                 }
             }
 
             return lista;
-
         }
 
         public List<ReporteVenta> Venta(string fechainicio, string fechafin)
         {
             List<ReporteVenta> lista = new List<ReporteVenta>();
 
-            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            using (NpgsqlConnection oconexion = new NpgsqlConnection(Conexion.cadena))
             {
                 try
                 {
-                    StringBuilder query = new StringBuilder();
-                    SqlCommand cmd = new SqlCommand("sp_ReporteVentas", oconexion);
+                    NpgsqlCommand cmd = new NpgsqlCommand("sp_ReporteVentas", oconexion);
                     cmd.Parameters.AddWithValue("fechainicio", fechainicio);
                     cmd.Parameters.AddWithValue("fechafin", fechafin);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     oconexion.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
@@ -110,10 +105,6 @@ namespace CapaDatos
             }
 
             return lista;
-
         }
-
-
-
     }
 }
